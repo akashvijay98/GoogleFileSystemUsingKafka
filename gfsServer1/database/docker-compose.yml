@@ -1,0 +1,10 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: akash
+      POSTGRES_PASSWORD: akash
+      POSTGRES_DB: gfsdb
+    ports:
+      - "5432:5432"
