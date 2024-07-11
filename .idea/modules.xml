@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/KafkaGoogle.iml" filepath="$PROJECT_DIR$/.idea/KafkaGoogle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gfs/gfs/gfs.iml" filepath="$PROJECT_DIR$/../gfs/gfs/gfs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gfsServer1/gfsServer1.iml" filepath="$PROJECT_DIR$/../gfsServer1/gfsServer1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gfsServer2/gfsServer2.iml" filepath="$PROJECT_DIR$/../gfsServer2/gfsServer2.iml" />
+    </modules>
+  </component>
+</project>
