@@ -3,7 +3,7 @@ the files are broken into chunks on the client side and then sent to kafka parit
 
 
 # **Steps to follow:**
-  ## Build Server1 Image
+   **Build Server1 Image**
 
   **step 1:** Open terminal and goto gfsServer1 Directory
   **step 2:** type the command  **docker build -t server1 .**
