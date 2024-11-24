@@ -8,18 +8,18 @@ the files are broken into chunks on the client side and then sent to kafka parit
   **step 1:** Open terminal and goto gfsServer1 Directory
   **step 2:** type the command  **docker build -t server1 .**
 
-  ## Build Server2 Image
+  **Build Server2 Image**
   **step 1:** Open terminal and goto gfsServer1 Directory
   **step 2:** type the command  **docker build -t server2 .**
 
-  ## Spin Up the Docker Containers:
+  **Spin Up the Docker Containers:**
   Run the **docker-compose.yml** file by typing **docker-compose up -d**
 
 
-  ## Run the GFS client
+  **Run the GFS client**
   goto **gfs/src/main/java/com/cloud/gfs/** and run the **GfsApplication.java** file.
 
-  ## Open Postman:
+  **Open Postman:**
   **step 1:** create a **POST** request 
   **step 2:** select **raw** and **JSON** for Payload
 
