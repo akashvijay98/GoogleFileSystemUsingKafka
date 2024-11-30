@@ -110,8 +110,23 @@ public class Server2 {
         kafkaTemplate.send(topic, message);
     }
 
-    private void handleReadCommand(ChunkMessage message) {
-        // Implement the read logic if needed
-        System.out.println("Read command not implemented for server1");
+    private void handleReadCommand(ChunkMessage message) throws IOException {
+        String chunkName = message.getFileName();
+        int chunkIndex = message.getChunkCount();
+        String extension = message.getFileExtension();
+
+        int bytes;
+        byte[] buffer = new byte[8192];
+
+        String path = "/temp1/" + chunkName + Integer.toString(chunkIndex) + extension;
+
+        FileInputStream iso = new FileInputStream(path);
+        bytes = iso.read(buffer,0,8192);
+
+        message.setData(Arrays.copyOf(buffer,bytes));
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonMessage = mapper.writeValueAsString(message);
+        sendMessage("response-topic",jsonMessage);
     }
 }
