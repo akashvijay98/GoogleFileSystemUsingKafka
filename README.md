@@ -1,7 +1,7 @@
 
 ## High Level Design
 
-![HLD](./static/gfsHLD.jpeg)
+![HLD](./static/gfsHLD.png)
 
 
 ## Steps to follow:
