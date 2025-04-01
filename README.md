@@ -24,16 +24,32 @@
   ### Step 5: API Testing with Postman  
   
   To test the API using Postman, follow these steps:  
-  #### File Upload API
+  ### 1. File Upload API
+  
   1. Open Postman and create a **POST** request.  
   2. Set the request URL to:  http://localhost:8080/gfs
   3. In the **Body** tab, select **raw** and choose **JSON** as the format.  
   4. Provide the following JSON payload:  
   
-  ```json
+  ```
   {
     "file": "{your file path}",
     "fileName": "{your file name}",
     "fileExtension": "{your file extension}",
     "fileSize": "{your file size}"
   }
+  ```
+  ### 2. Read File API   
+  
+  To retrieve a file, follow these steps:  
+  
+  1. Open Postman and create a **GET** request.  
+  2. Set the request URL to:  http://localhost:8080/gfs
+  
+  3. Add the required query parameters:  
+  - `fileId`: Unique identifier of the file.  
+  - `fileName`: Name of the file.  
+  - `fileExtension`: File extension (e.g., `.txt`, `.pdf`).  
+  
+  4. Example request:  
+  http://localhost:8080/gfs?fileId={your-file-id}&fileName={your-file-name}&fileExtension={your-file-extension}
