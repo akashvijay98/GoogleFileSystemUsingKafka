@@ -21,8 +21,7 @@
   ### Step 4: Run the GFS client
   1. goto directory **gfs/src/main/java/com/cloud/gfs/** and run the **GfsApplication.java** file.
   
-  ## Step 5: API Testing with Postman  
-  ### Running the API  
+  ### Step 5: API Testing with Postman  
   
   To test the API using Postman, follow these steps:  
   
