@@ -1,0 +1,149 @@
+
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.2
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    healthcheck:
+      test: ["CMD-SHELL", "echo ruok | nc localhost 2181 | grep imok"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gfs-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    command: ["/bin/sh", "-c", "sleep 30 && /etc/confluent/docker/run"]
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - gfs-network
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:7.3.2
+    container_name: control-center
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka:9092
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      PORT: 9021
+    networks:
+      - gfs-network
+
+  gfs:
+    build:
+      context: ./gfs
+      dockerfile: Dockerfile
+    container_name: gfs
+    ports:
+      - "8080:8080"
+    depends_on:
+      kafka:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    networks:
+      - gfs-network
+
+  gfs-server-1:
+    build:
+      context: gfsServer
+      dockerfile: Dockerfile
+    container_name: gfs-server-1
+    ports:
+      - "8081:8081"
+    depends_on:
+      - kafka
+    environment:
+      - SERVER_PORT=8081
+    networks:
+      - gfs-network
+
+  gfs-server-2:
+    build:
+      context: gfsServer
+      dockerfile: Dockerfile
+    container_name: gfs-server-2
+    ports:
+      - "8082:8082"
+    depends_on:
+      - kafka
+    environment:
+      - SERVER_PORT=8082
+    networks:
+      - gfs-network
+
+
+  gfs-server-3:
+    build:
+      context: gfsServer
+      dockerfile: Dockerfile
+    container_name: gfs-server-3
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+    environment:
+      - SERVER_PORT=8083
+    networks:
+      - gfs-network
+
+  
+  gfs-server-4:
+    build:
+      context: gfsServer
+      dockerfile: Dockerfile
+    container_name: gfs-server-4
+    ports:
+      - "8084:8084"
+    depends_on:
+      - kafka
+    environment:
+      - SERVER_PORT=8084
+    networks:
+      - gfs-network
+
+  postgres:
+    image: 'postgres:13.1-alpine'
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - C:\Docker\pgdev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gfs-network
+
+networks:
+  gfs-network:
+    driver: bridge
