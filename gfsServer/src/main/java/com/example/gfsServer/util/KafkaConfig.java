@@ -1,4 +1,4 @@
-package com.cloud.gfs.util;
+package com.example.gfsServer.util;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

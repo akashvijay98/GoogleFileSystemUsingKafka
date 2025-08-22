@@ -4,6 +4,7 @@ import com.cloud.gfs.DAO.GFSRequestDAO;
 import com.cloud.gfs.service.GFSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +28,13 @@ public class GFSController {
         gfsService.getFile(fileId, fileName, fileExtension);
     }
 
-    @PostMapping("/gfs")
-    public String uploadFile(@RequestBody GFSRequestDAO gfsRequest){
+        @PostMapping("/gfs")
+    public String uploadFile(@RequestParam("file") MultipartFile file,
+                             @RequestParam("fileName") String fileName,
+                             @RequestParam("fileExtension") String fileExtension,
+                             @RequestParam("fileSize") Integer fileSize) {
         try {
-
-            return gfsService.uploadFile(gfsRequest.getFile(),gfsRequest.getFileName(), gfsRequest.getFileExtension(), gfsRequest.getFileSize());
+            return gfsService.uploadFile(file, fileName, fileExtension, fileSize);
         }
         catch(Exception e){
             throw new RuntimeException(e);

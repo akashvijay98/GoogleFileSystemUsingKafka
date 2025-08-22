@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>gfsServer1</artifactId>
+	<artifactId>gfsServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gfsServer1</name>
+	<name>gfsServer</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -80,6 +80,11 @@
 			<version>9.7.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.cloud</groupId>
+			<artifactId>gfs</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

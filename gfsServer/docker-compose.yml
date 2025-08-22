@@ -69,7 +69,7 @@ services:
       - my-network
 
   server1:
-    image: server1
+    image: gfs-server1
     container_name: server1
     networks:
       - my-network
@@ -84,7 +84,7 @@ services:
       SPRING_KAFKA_CONSUMER_ENABLE-AUTO-COMMIT: false
 
   server2:
-    image: server2
+    image: gfs-server2
     container_name: server2
     networks:
       - my-network
@@ -97,7 +97,18 @@ services:
       SPRING_PROFILES_ACTIVE: docker
 
 
-
+  server3:
+    image: gfs-server3
+    container_name: server3
+    networks:
+      - my-network
+    ports:
+      - "4594:4594" # Specify the port mapping for server2
+    volumes:
+      - C:/Users/ajayv/Documents/Test2:/temp2 # Specify the volume mapping for server2
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: broker:29092
+      SPRING_PROFILES_ACTIVE: docker
 
 
 
