@@ -1,6 +1,7 @@
-package com.example.gfsServer1.Service;
+package  com.example.gfsServer.Script;
 
-import com.example.gfsServer1.DAO.ChunkMessage;
+
+import com.example.gfsServer.DAO.ChunkMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -33,7 +34,7 @@ class KafkaMessage {
 }
 
 @Service
-public class Server1 {
+public class Server {
 
     private static final String CREATE_TOPIC = "create-chunk";
     private static final String RESPONSE_TOPIC = "response-topic";
@@ -48,7 +49,7 @@ public class Server1 {
 
 
 
-    @KafkaListener(topicPartitions = @org.springframework.kafka.annotation.TopicPartition(topic = CREATE_TOPIC, partitions = {"0"}), groupId = "gfs-consumer")
+    @KafkaListener(topics = CREATE_TOPIC, groupId = "gfs-consumer")
     public void listen(ConsumerRecord<String, String> record,Acknowledgment ack) {
 
         if (record != null) {
@@ -58,6 +59,7 @@ public class Server1 {
 
         }
     }
+
 
     public void processMessages(String jsonMessage) {
 
@@ -94,7 +96,7 @@ public class Server1 {
 
         System.out.println("Successfully received chunk " + chunkNo);
 
-        String path = "/temp1/" + fileName + Integer.toString(chunkNo) + extension;
+        String path = "/temp2/" + fileName + Integer.toString(chunkNo) + extension;
         File file = new File(path);
         try (FileOutputStream fileOutputStream = new FileOutputStream(file, true)) {
             // Append data to file
