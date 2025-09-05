@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gfs-client-ingress
+  annotations:
+    # Use use-regex annotation to ensure regex is enabled for NGINX
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /gfs(/|$)(.*)
+            pathType: ImplementationSpecific  # Change this line
+            backend:
+              service:
+                name: gfs-client
+                port:
+                  number: 80

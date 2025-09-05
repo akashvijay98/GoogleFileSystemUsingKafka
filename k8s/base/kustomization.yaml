@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - gfs-client-deployment.yaml
+  - gfs-server-deployment.yaml
+  - gfs-server1-deployment.yaml
+  - gfs-server2-deployment.yaml
+  - gfs-client-service.yaml
+  - gfs-server-service.yaml
+  - gfs-server1-service.yaml
+  - gfs-server2-service.yaml
+  - postgres-deployment.yaml
+  - postgres-service.yaml
+  - postgres-storage.yaml
+  - zookeeper-deployment.yaml
+  - zookeeper-service.yaml
+  - kafka-deployment.yaml
+  - kafka-service.yaml
+  - kafka-topics-job.yaml
+  - gfs-client-ingress.yaml

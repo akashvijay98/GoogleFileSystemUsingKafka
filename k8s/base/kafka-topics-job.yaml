@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-topic-creator
+spec:
+  template:
+    metadata:
+      labels:
+        app: kafka-topic-creator
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: kafka-topic-creator
+        image: confluentinc/cp-kafka:latest
+        command: ["sh", "-c"]
+        args:
+          - "kafka-topics --bootstrap-server kafka-broker:9092 --create --topic  create-chunk --partitions 3 --replication-factor 1"
+        env:
+        - name: KAFKA_CFG_ZOOKEEPER_CONNECT
+          value: zookeeper:2181

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gfs-server2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gfs-server2
+  template:
+    metadata:
+      labels:
+        app: gfs-server2
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-credentials
+      containers:
+      - name: gfs-server2
+        # IMPORTANT: Replace with the actual image name and tag
+        image: akashvj98/googlefilesystemusingkafka-gfs-server-3:latest
+        env:
+        - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+          value: kafka-service:9092
+        ports:
+        - containerPort: 4593

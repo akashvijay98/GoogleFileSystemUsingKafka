@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gfs-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gfs-client
+  template:
+    metadata:
+      labels:
+        app: gfs-client
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-credentials
+      initContainers:
+      - name: wait-for-postgres
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup postgres; do echo waiting for postgres; sleep 2; done;']
+      containers:
+      - name: gfs-client
+        # IMPORTANT: Replace with the actual image name and tag
+        image: akashvj98/googlefilesystemusingkafka-gfs:latest
+        env:
+        - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+          value: kafka-service:9092
+        ports:
+        - containerPort: 8080
