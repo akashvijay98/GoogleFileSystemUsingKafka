@@ -24,21 +24,36 @@
   ### Step 5: API Testing with Postman  
   
   To test the API using Postman, follow these steps:  
-  ### 1. File Upload API
-  
-  1. Open Postman and create a **POST** request.  
-  2. Set the request URL to:  http://localhost:8080/gfs
-  3. In the **Body** tab, select **raw** and choose **JSON** as the format.  
-  4. Provide the following JSON payload:  
-  
-  ```
-  {
-    "file": "{your file path}",
-    "fileName": "{your file name}",
-    "fileExtension": "{your file extension}",
-    "fileSize": "{your file size}"
-  }
-  ```
+ 
+### Step 1: Set Up the Request
+- **Method:** `POST`  
+- **URL:** `http://localhost:8080/gfs` (replace with your API endpoint)
+
+---
+
+### Step 2: Configure the Body
+1. Click the **Body** tab below the URL bar.  
+2. Select the **form-data** radio button.  
+
+---
+
+### Step 3: Add Parameters
+For each parameter in your `uploadFile` method, create a new row in the key-value editor:
+
+| Key          | Type  | Value        | Description                          |
+|--------------|-------|-------------|--------------------------------------|
+| `file`       | File  | *Select File* | The `MultipartFile` from your code. Change the key's type from **Text** to **File** by clicking the dropdown. |
+| `fileName`   | Text  | `my_document` | The filename string.                 |
+| `fileExtension` | Text | `txt`       | The file extension string.           |
+| `fileSize`   | Text  | `12345`      | The file size integer.               |
+
+---
+
+### Step 4: Send the Request
+1. Click the blue **Send** button on the right side of the URL bar.  
+2. Postman will automatically set the correct `Content-Type: multipart/form-data` header and format the request for you.  
+
+---
   ### 2. Read File API   
   
   To retrieve a file, follow these steps:  
