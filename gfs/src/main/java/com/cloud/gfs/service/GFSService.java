@@ -291,6 +291,7 @@ public class GFSService {
                 //new FileMetaDataDAO(fileResponse.getId(), chunkResponse.getId(), chunkCount, servers[serverNumber], ports[serverNumber]);
 
             }
+            fileService.updateFileStatus(fileResponse.getId(), "UPLOADED");
         }
         catch (Exception e){
             log.error("there is an exception", e.getStackTrace());
