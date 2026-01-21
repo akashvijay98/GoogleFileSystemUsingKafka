@@ -30,6 +30,8 @@ public class GFSService {
     private static final String READ_TOPIC = "read-chunk";
     private static final String RESPONSE_TOPIC = "response-topic";
 
+    private final ObjectMapper objectMapper;
+
     private KafkaProducer<String, String> producer;
 
     @Autowired
@@ -94,7 +96,7 @@ public class GFSService {
      */
     private void sendChunkToKafka(ChunkMessage chunkMessage, String partitionKey) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            
             String jsonMessage = mapper.writeValueAsString(chunkMessage);
             
             // Create Kafka producer record with partition key
