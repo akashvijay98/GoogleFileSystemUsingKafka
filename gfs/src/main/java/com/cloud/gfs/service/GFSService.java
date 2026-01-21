@@ -234,7 +234,7 @@ public class GFSService {
     }
 
     public String uploadFile(org.springframework.web.multipart.MultipartFile file, String fileName, String fileExtension, Integer fileSize) throws IOException {
-
+    String generatedFileId = null;
         Socket socket0;
 
         List<File> list = new ArrayList<>(); // check
@@ -251,6 +251,9 @@ public class GFSService {
 
             // save file info in file table
             FileDAO fileResponse = saveFileDetails(fileDAO);
+            if (fileResponse != null) {
+                generatedFileId = String.valueOf(fileResponse.getId());
+            }
 
             while ((dataRead=in.read(buffer)) != -1 ) {
                 ChunkMessage chunkMessage = new ChunkMessage();
@@ -291,7 +294,7 @@ public class GFSService {
             log.error("there is an exception", e.getStackTrace());
             e.printStackTrace();
         }
-        return "successfully uploaded";
+        return "FileId"+generatedFileId;
     }
 
 
