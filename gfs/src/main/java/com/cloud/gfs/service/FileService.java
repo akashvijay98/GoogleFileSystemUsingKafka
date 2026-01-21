@@ -34,7 +34,7 @@ public class FileService {
         return fileResponse;
     }
 
-    public void updateFileStatus(Long fileId, String newStatus) {
+    public void updateFileStatus(UUID fileId, String newStatus) {
    
     FileDAO file = fileRepository.findById(fileId)
         .orElseThrow(() -> new RuntimeException("File not found with id: " + fileId));
